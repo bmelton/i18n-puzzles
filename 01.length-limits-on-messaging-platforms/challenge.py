@@ -1,22 +1,26 @@
 from analyze_string import analyze_string
 from result_type import Result
 
+def read_inputs(file_path='./data/input.txt'):
+  try:
+    with open(file_path, 'r', encoding='utf-8') as file:
+      return file.read().splitlines()
+  except FileNotFoundError:
+    print(f"Error: The file at {file_path} was not found.")
+    raise
+  except IOError as e:
+    print(f"Error reading the file: {e}")
+    raise
+
+  return []
+
+
 def main(): 
   """ 
-  Given the string of messages in `messages`, calculate the total cost of 
-  the messages based on `analyze_string.py` and `calculate_costs.py`
-
-  >>> main()
-  31
+  Reads in messages from `./data/input.txt` and then calculates the cost of them all
   """
-  messages = [
-    "néztek bele az „ártatlan lapocskába“, mint ahogy belenézetlen mondták ki rá a halálos itéletet a sajtó csupa 20–30 éves birái s egyben hóhérai.",
-    "livres, et la Columbiad Rodman ne dépense que cent soixante livres de poudre pour envoyer à six milles son boulet d'une demi-tonne.  Ces",
-    "Люди должны были тамъ и сямъ жить въ палаткахъ, да и мы не были помѣщены въ посольскомъ дворѣ, который также сгорѣлъ, а въ двухъ деревянныхъ",
-    "Han hade icke träffat Märta sedan Arvidsons middag, och det hade gått nära en vecka sedan dess. Han hade dagligen promenerat på de gator, där"
-  ]
 
-
+  messages = read_inputs()
   cost = 0
 
   for message in messages: 
@@ -26,5 +30,4 @@ def main():
   print(cost)
 
 if __name__ == "__main__":
-  import doctest
-  doctest.testmod(verbose=True)
+  main()
