@@ -1,34 +1,5 @@
-from typing import TypedDict
-
-COST_PER_SMS   = 11
-COST_PER_TWEET = 7
-COST_PER_BOTH  = 13
-
-def calculate_cost(chars: int, bytes: int) -> int:
-  if chars < 140:
-    fits_in_tweet = True
-
-  if bytes < 160:
-    fits_in_sms = True
-
-  if fits_in_tweet and fits_in_sms:
-    return COST_PER_BOTH
-
-  elif fits_in_sms:
-    return COST_PER_SMS
-
-  elif fits_in_tweet:
-    return COST_PER_TWEET
-
-  # It's too big, cap'n
-  return 0
-
-
-class Result(TypedDict):
-  chars: int
-  bytes: int
-  cost: int
-
+from calculate_cost import calculate_cost
+from result_type import Result
 
 def analyze_string(text: str) -> Result:
   """ 
@@ -48,7 +19,6 @@ def analyze_string(text: str) -> Result:
   >>> analyze_string(" Ã«, Ã, Ã¬, Ã¹, Ã")
   {'chars': 17, 'bytes': 25, 'cost': 13}
   """ 
-
 
   string_length = len(text)
   bit_length = len(text.encode('utf-8'))
